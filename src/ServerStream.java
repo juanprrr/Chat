@@ -1,5 +1,4 @@
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.Date;
 /**This class is a Thread that allows the transmission of data to the connected clients
@@ -19,12 +18,21 @@ public class ServerStream extends Thread {
             e.printStackTrace();
         }
     }
+    /**This function is able to read whatever the client writes, and it returns the message. It's a kind of mirror.
+     */
     private void threadClientSocket(Socket clientSocket) throws IOException, InterruptedException {
+        InputStream inputStream = clientSocket.getInputStream();
         OutputStream outputStream = clientSocket.getOutputStream();
-        //outputStream.write("Hola mundo\n".getBytes());
-        for (int i = 0; i<10; i++){
-            outputStream.write(("Time" + new Date() + "\n").getBytes());
-            Thread.sleep(1000);
+
+        BufferedReader reader = new BufferedReader((new InputStreamReader(inputStream)));
+        String line;
+        while((line = reader.readLine()) != null){
+            if ("Exit".equalsIgnoreCase(line)){
+                break;
+            }
+            String msg = "You wrote:" + line + "\n";
+            outputStream.write(msg.getBytes());
+
         }
         clientSocket.close();
     }
