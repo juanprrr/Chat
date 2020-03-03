@@ -3,7 +3,10 @@ import java.io.*;
 import java.util.*;
 import java.net.*;
 
-
+/** Class Server: creates a server socket that listens to a specific port, once there´s communication, the streamServer handles the communication with the client Socket
+ * @author Juan P. Rostran
+ *
+ */
 public class Server {
     private JButton msg_send;
     private JTextField msg_text;
@@ -11,14 +14,15 @@ public class Server {
     private JTextPane connectedClients;
 
     public static void main(String[] args) {
-        int port = 9000;
+        int port = 40000;
         try {
             ServerSocket serverSocket= new ServerSocket(port);
             while(true){
+                System.out.println("Connecting Client---");
                 Socket clientSocket = serverSocket.accept();
-                OutputStream outputStream = clientSocket.getOutputStream();
-                outputStream.write("Hola mundo\n".getBytes());
-                clientSocket.close();
+                System.out.println("Connected");
+                ServerStream streamer = new ServerStream(clientSocket);
+                streamer.start();
             }
         } catch (IOException e){
             e.printStackTrace();
