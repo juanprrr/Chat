@@ -1,38 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Client">
-  <grid id="27dc6" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="334" height="251"/>
+      <xy x="20" y="20" width="499" height="324"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-12513515"/>
+    </properties>
     <border type="none"/>
     <children>
-      <component id="86c82" class="javax.swing.JTextField" binding="msg_text">
+      <component id="86c82" class="javax.swing.JTextField" binding="idText">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
         <properties>
+          <background color="-12505572"/>
+          <foreground color="-13082693"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="537ec" class="javax.swing.JTextArea" binding="textArea">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-12513515"/>
           <text value=""/>
         </properties>
       </component>
       <component id="a9f68" class="javax.swing.JButton" binding="sendButton" default-binding="true">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-12514531"/>
+          <font name="Minion Pro"/>
+          <foreground color="-13082693"/>
           <text value="Send"/>
         </properties>
       </component>
-      <component id="cee0a" class="javax.swing.JTextArea" binding="msg_area">
+      <component id="2ddd7" class="javax.swing.JLabel">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Minion Pro"/>
+          <foreground color="-13082693"/>
+          <text value="Type IP"/>
+        </properties>
+      </component>
+      <component id="78645" class="javax.swing.JButton" binding="connectToServerButton" default-binding="true">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-12514531"/>
+          <enabled value="false"/>
+          <font name="Minion Pro"/>
+          <foreground color="-13082693"/>
+          <hideActionText value="true"/>
+          <text value="Connect to server"/>
+        </properties>
+      </component>
+      <component id="bcba1" class="javax.swing.JTextField" binding="ip">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-12505572"/>
+          <text value=""/>
+        </properties>
       </component>
     </children>
   </grid>
