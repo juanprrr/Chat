@@ -7,12 +7,12 @@ import java.net.*;
  * @author Juan P. Rostran
  *
  */
-public class Server {
+public class Server extends javax.swing.JFrame {
     private JButton msg_send;
     private JTextField msg_text;
     private JTextArea msg_area;
-    private JTextPane connectedClients;
-
+    private JButton startServer;
+    private JPanel Server;
     public static void main(String[] args) {
         int port = 40000;
         try {
