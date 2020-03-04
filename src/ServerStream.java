@@ -1,69 +1,40 @@
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
-
-
-/**This class allows the transmission of data to the connected clients
+import java.util.Date;
+/**This class is a Thread that allows the transmission of data to the connected clients
  */
-public class ServerStream {
-    private Socket socket;
-    private ServerSocket serverSocket;
-    private InputStreamReader din;
-    private DataOutputStream dout;
-    private BufferedReader input;
-    private int port = 40000;
+public class ServerStream extends Thread {
 
-    public ServerStream() {
+    private final Socket clientSocket;
+    public ServerStream(Socket clientSocket) {
+        this.clientSocket = clientSocket;
+    }
+
+    @Override
+    public void run() {
         try {
-            serverSocket = new ServerSocket(port);
-            Socket socket = serverSocket.accept();
-/**Din and input instances get the incoming data and read it.
- *
- */         din = new InputStreamReader(socket.getInputStream());
-            input = new BufferedReader(din);
-/**Dout instance is for data output
- *
- */
-            dout = new DataOutputStream(socket.getOutputStream());
-        } catch (IOException e) {
+            threadClientSocket(clientSocket);
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
-    public ServerStream(String ip) throws IOException {
-        try{
-            socket = new Socket(ip, this.port);
+    /**This function is able to read whatever the client writes, and it returns the message. It's a kind of mirror.
+     */
+    private void threadClientSocket(Socket clientSocket) throws IOException, InterruptedException {
+        InputStream inputStream = clientSocket.getInputStream();
+        OutputStream outputStream = clientSocket.getOutputStream();
 
-            din = new InputStreamReader(socket.getInputStream());
-            input = new BufferedReader(din);
-
-            dout = new DataOutputStream(socket.getOutputStream());
-
-    }
-        catch (IOException e) {e.printStackTrace();}
-    }
-
-    public void sendMsg(String msg){
-        try{
-            dout.writeUTF(msg);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-    public String readMsg(){
-        try {
-            return input.readLine();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    public void offline(){
-        try{
-            socket.close();
-            serverSocket.close();
-            }catch (IOException e) {e.printStackTrace();}
+        BufferedReader reader = new BufferedReader((new InputStreamReader(inputStream)));
+        String line;
+        while((line = reader.readLine()) != null){
+            if ("Exit".equalsIgnoreCase(line)){
+                break;
+            }
+            String msg = "You wrote:" + line + "\n";
+            outputStream.write(msg.getBytes());
 
         }
+        clientSocket.close();
+    }
 }
-
 
