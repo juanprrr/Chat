@@ -1,31 +1,35 @@
-import javax.swing.*;
-import java.io.*;
-import java.util.*;
-import java.net.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-/** Class Server: creates a server socket that listens to a specific port, once there´s communication, the streamServer handles the communication with the client Socket
- * @author Juan P. Rostran
- *
- */
-public class Server extends javax.swing.JFrame {
-    private JButton msg_send;
-    private JTextField msg_text;
-    private JTextArea msg_area;
-    private JButton startServer;
-    private JPanel Server;
-    public static void main(String[] args) {
-        int port = 40000;
+public class Server {
+    // server is listening on port 5000
+    private static int port = 5000;
+    private ServerStream serverStream;
+
+    public Server(){
         try {
-            ServerSocket serverSocket= new ServerSocket(port);
+            ServerSocket serverSocket = new ServerSocket(port);
+            port ++;
+
+            // client request
             while(true){
                 System.out.println("Connecting Client---");
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Connected");
-                ServerStream streamer = new ServerStream(clientSocket);
-                streamer.start();
+                System.out.println("Connected to: " + clientSocket.getPort());
+                // obtaining input and out streams
+                DataInputStream dis = new DataInputStream(clientSocket.getInputStream());
+                DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
+
+
+
             }
-        } catch (IOException e){
+
+        }catch (IOException e){
             e.printStackTrace();
         }
+
     }
 }

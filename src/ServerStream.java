@@ -1,40 +1,63 @@
 import java.io.*;
 import java.net.Socket;
-import java.util.Date;
 /**This class is a Thread that allows the transmission of data to the connected clients
+ * @author J.Peña
+ * @param
  */
 public class ServerStream extends Thread {
-
+    private final DataInputStream dis;
+    private final DataOutputStream dos;
     private final Socket clientSocket;
-    public ServerStream(Socket clientSocket) {
+    private Boolean running = true;
+    private String returned;
+
+
+    /**Server class constructor
+     * @author J.Peña
+     * @param  clientSocket
+     * @param dos
+     * @param dis
+     * @return
+     */
+    public ServerStream(Socket clientSocket, DataOutputStream dos, DataInputStream dis) {
         this.clientSocket = clientSocket;
+        this.dis = dis;
+        this.dos = dos;
     }
 
     @Override
     public void run() {
-        try {
-            threadClientSocket(clientSocket);
-        } catch (IOException | InterruptedException e) {
+        try{
+            BufferedReader reader = new BufferedReader((new InputStreamReader(dis)));
+            while(running){
+                String line= reader.readLine();
+                switch (line){
+                    case "EXIT":
+                        clientSocket.close();
+                        running = false;
+                        break;
+                    case "TESTING":
+                        dos.writeUTF("SUCCESS");
+                        break;
+                    default:
+                        //TODO: SEND TO GUI
+                }
+            }
+
+        }catch(IOException e){
             e.printStackTrace();
         }
+
     }
-    /**This function is able to read whatever the client writes, and it returns the message. It's a kind of mirror.
-     */
-    private void threadClientSocket(Socket clientSocket) throws IOException, InterruptedException {
-        InputStream inputStream = clientSocket.getInputStream();
-        OutputStream outputStream = clientSocket.getOutputStream();
 
-        BufferedReader reader = new BufferedReader((new InputStreamReader(inputStream)));
-        String line;
-        while((line = reader.readLine()) != null){
-            if ("Exit".equalsIgnoreCase(line)){
-                break;
-            }
-            String msg = "You wrote:" + line + "\n";
-            outputStream.write(msg.getBytes());
-
+    public void sendMsg(String msg){
+        try{
+            dos.writeUTF(msg);
+        }catch (IOException e){
+            e.printStackTrace();
         }
-        clientSocket.close();
+
     }
+
 }
 

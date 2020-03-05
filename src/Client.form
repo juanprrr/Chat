@@ -24,7 +24,7 @@
       </component>
       <component id="537ec" class="javax.swing.JTextArea" binding="textArea">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="2" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
@@ -49,9 +49,9 @@
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font name="Minion Pro"/>
+          <font name="Minion Pro" size="24"/>
           <foreground color="-13082693"/>
-          <text value="Type IP"/>
+          <text value="Port"/>
         </properties>
       </component>
       <component id="bcba1" class="javax.swing.JTextField" binding="ip">
@@ -66,13 +66,13 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="946d8" class="javax.swing.JButton" binding="connectToServerButton" default-binding="true">
+      <component id="946d8" class="javax.swing.JButton" binding="testConnectionButton" default-binding="true">
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <foreground color="-13082693"/>
-          <text value="Connect to server"/>
+          <text value="Test Connection"/>
         </properties>
       </component>
     </children>

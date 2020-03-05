@@ -6,7 +6,7 @@ public class Client extends javax.swing.JFrame {
     private JTextArea textArea;
     private JTextField ip;
     private JPanel Client;
-    private JButton connectToServerButton;
+    private JButton testConnectionButton;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Client");
