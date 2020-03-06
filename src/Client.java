@@ -1,18 +1,27 @@
-import javax.swing.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Client extends javax.swing.JFrame {
-    private JButton sendButton;
-    private JTextField idText;
-    private JTextArea textArea;
-    private JTextField ip;
-    private JPanel Client;
-    private JButton testConnectionButton;
+public class Client {
+    private int port;
+    private final DataInputStream dis;
+    private final DataOutputStream dos;
+    private Map<Integer, ServerStream> serverStreams = new HashMap<Integer, ServerStream>();
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Client");
-        frame.setContentPane(new Client().Client);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+    public Client (int port, DataInputStream dis, DataOutputStream dos) {
+        this.dis = dis;
+        this.dos = dos;
+
+        try{
+            Socket socket = new Socket("localhost",port);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+
     }
 }

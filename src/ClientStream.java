@@ -1,10 +1,7 @@
 import java.io.*;
 import java.net.Socket;
-/**This class is a Thread that allows the transmission of data to the connected clients
- * @author J.Peña
- * @param
- */
-public class ServerStream extends Thread {
+
+class ClientStream extends Thread {
     private final DataInputStream dis;
     private final DataOutputStream dos;
     private final Socket clientSocket;
@@ -13,14 +10,15 @@ public class ServerStream extends Thread {
     private Window window;
 
 
-    /**Server class constructor
-     * @author J.Peña
-     * @param  clientSocket
+    /**
+     * Server class constructor
+     *
+     * @param clientSocket
      * @param dos
      * @param dis
-     *
+     * @author J.Peña
      */
-    public ServerStream(Socket clientSocket, DataOutputStream dos, DataInputStream dis, Window window) {
+    public ClientStream(Socket clientSocket, DataOutputStream dos, DataInputStream dis, Window window) {
         this.clientSocket = clientSocket;
         this.dis = dis;
         this.dos = dos;
@@ -29,11 +27,11 @@ public class ServerStream extends Thread {
 
     @Override
     public void run() {
-        try{
+        try {
             BufferedReader reader = new BufferedReader((new InputStreamReader(dis)));
-            while(running){
-                String line= reader.readLine();
-                switch (line){
+            while (running) {
+                String line = reader.readLine();
+                switch (line) {
                     case "EXIT":
                         clientSocket.close();
                         running = false;
@@ -43,16 +41,13 @@ public class ServerStream extends Thread {
                         break;
                     default:
                         //TODO: SEND TO GUI
-                        if (!line.isBlank()) {
-                            window.getTextArea().setText(window.getTextArea().getText() + String.valueOf(clientSocket.getPort()) + " : " + line + "\n");
-                        }
+                        window.getTextArea().setText(window.getTextArea().getText() + String.valueOf(clientSocket.getPort()) + " : " + line + "\n");
                 }
             }
 
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void sendMsg(String msg){
@@ -61,8 +56,5 @@ public class ServerStream extends Thread {
         }catch (IOException e){
             e.printStackTrace();
         }
-
     }
-
 }
-
